@@ -44,7 +44,7 @@ class University:
     def get_students(subject=None):
         with sqlite3.connect('students.db') as c:
             if subject is None:
-                # cur = c.execute(""f"SELECT * FROM grades;""")
+                cur = c.execute(""f"SELECT * FROM grades;""")
                 cur = c.execute(""f"SELECT students.name, students.age, subject, grade FROM students JOIN grades ON students.id = grades.student_id;""")
             else:
                 cur = c.execute(f"SELECT students.name, students.age, subject, grade FROM students JOIN grades ON students.id = grades.student_id WHERE subject = '{subject}'")
