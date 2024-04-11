@@ -44,9 +44,10 @@ class University:
     def get_students(subject=None):
         with sqlite3.connect('students.db') as c:
             if subject is None:
-                cur = c.execute(""f"SELECT * FROM grades;""")
+                # cur = c.execute(""f"SELECT * FROM grades;""")
+                cur = c.execute(""f"SELECT students.name, students.age, subject, grade FROM students JOIN grades ON students.id = grades.student_id;""")
             else:
-                cur = c.execute(f"SELECT subject, grade, students.name, students.age FROM students JOIN grades ON students.id = grades.student_id WHERE subject = '{subject}'")
+                cur = c.execute(f"SELECT students.name, students.age, subject, grade FROM students JOIN grades ON students.id = grades.student_id WHERE subject = '{subject}'")
             c.commit()
             return cur.fetchall()
 
@@ -59,15 +60,15 @@ with sqlite3.connect('students.db') as con:
 
 u1 = University('Urban')
 
-u1.add_student('Ivan', 26)  # id - 1
-u1.add_student('Ilya', 24)  # id - 2
-u1.add_student('Alex', 38)  # id - 3
-u1.add_student('Vika', 18)  # id - 4
-
-u1.add_grade(1, 'Python', 4.8)
-u1.add_grade(2, 'PHP', 4.3)
-u1.add_grade(3, 'Python', 5)
-u1.add_grade(4, 'Java', 4.1)
+# u1.add_student('Ivan', 26)  # id - 1
+# u1.add_student('Ilya', 24)  # id - 2
+# u1.add_student('Alex', 38)  # id - 3
+# u1.add_student('Vika', 18)  # id - 4
+#
+# u1.add_grade(1, 'Python', 4.8)
+# u1.add_grade(2, 'PHP', 4.3)
+# u1.add_grade(3, 'Python', 5)
+# u1.add_grade(4, 'Java', 4.1)
 
 print(u1.get_students())
 print(u1.get_students('Python'))
