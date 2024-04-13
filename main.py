@@ -44,7 +44,6 @@ class University:
     def get_students(subject=None):
         with sqlite3.connect('students.db') as c:
             if subject is None:
-                cur = c.execute(""f"SELECT * FROM grades;""")
                 cur = c.execute(""f"SELECT students.name, students.age, subject, grade FROM students JOIN grades ON students.id = grades.student_id;""")
             else:
                 cur = c.execute(f"SELECT students.name, students.age, subject, grade FROM students JOIN grades ON students.id = grades.student_id WHERE subject = '{subject}'")
@@ -69,6 +68,16 @@ u1 = University('Urban')
 # u1.add_grade(2, 'PHP', 4.3)
 # u1.add_grade(3, 'Python', 5)
 # u1.add_grade(4, 'Java', 4.1)
+#
+# u1.add_grade(1, 'Python', 4.7)
+# u1.add_grade(2, 'PHP', 4.9)
+# u1.add_grade(3, 'Python', 5)
+# u1.add_grade(4, 'Java', 4.8)
+#
+# u1.add_grade(1, 'Python', 4.9)
+# u1.add_grade(2, 'PHP', 4.1)
+# u1.add_grade(3, 'Python', 5)
+# u1.add_grade(4, 'Java', 4.2)
 
 print(u1.get_students())
 print(u1.get_students('Python'))
